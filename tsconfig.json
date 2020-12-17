@@ -5,6 +5,7 @@
         "module": "es6",
         "target": "es6",
         "moduleResolution": "node",
+        "strictNullChecks": true,
         "jsx": "react",
         "allowJs": true
     },

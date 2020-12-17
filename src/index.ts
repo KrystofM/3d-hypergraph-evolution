@@ -1,15 +1,5 @@
-import * as _ from "lodash";
 import * as THREE from "three";
-
-function component() {
-  const element = document.createElement("div");
-
-  element.innerHTML = _.join(["Hello", "webpack"], " ");
-
-  return element;
-}
-
-document.body.appendChild(component());
+import "./styles/style.sass";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -18,3 +8,28 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial({
+  color: 0x00ff00,
+});
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// eslint-disable-next-line id-length
+camera.position.z = 5;
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+
+  renderer.render(scene, camera);
+}
+
+animate();

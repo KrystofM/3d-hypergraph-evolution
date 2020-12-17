@@ -8,7 +8,7 @@ extends:
   - 'plugin:@shopify/prettier'
 parser: '@typescript-eslint/parser'
 parserOptions:
-  project: 'tsconfig.json'
+  project: './packages/**/tsconfig.json'
 plugins:
-  - "@typescript-eslint"
+  - '@typescript-eslint'
 rules: {}
