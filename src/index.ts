@@ -7,7 +7,7 @@ import HyperGraphRules from "./hyper-graph-rules";
 //const someHyperGraph = new HyperGraph([0,1,2,3,4], [[0,1,2], [1,2,4], [0,2,3]])
 //const someGraph = someHyperGraph.convertToGraph();
 
-let graph = HyperGraphInitialPositions.rule2
+let graph = HyperGraphInitialPositions.rule3
 
 const Graph = ForceGraph3D()
 (document.body)
@@ -17,12 +17,12 @@ const Graph = ForceGraph3D()
 
 let ticks = 0;
 const interval = setInterval(() => {
-    if(ticks >= 5) {
+    if(ticks >= 8) {
         clearInterval(interval);
     }
 
-    graph = HyperGraphRules.applyRule2(graph);
+    graph = HyperGraphRules.applyRule3(graph);
     Graph.graphData(graph.convertToGraph());
 
     ticks++;
-}, 2000);
+}, 500);
