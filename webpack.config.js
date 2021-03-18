@@ -1,13 +1,19 @@
 const path = require("path");
+const sveltePreprocess = require('svelte-preprocess');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const mode = process.env.NODE_ENV || 'development';
+const prod = mode === 'production';
+
 module.exports = {
-  mode: 'development',
+  mode,
   entry: "./src/index.ts",
-  devtool: 'inline-source-map',
+  devtool: prod ? false : 'inline-source-map',
   devServer: {
     contentBase: './dist',
+    hot: true
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
@@ -21,6 +27,27 @@ module.exports = {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
+      },
+      {
+        test: /\.svelte$/,
+        use: {
+          loader: 'svelte-loader',
+          options: {
+            compilerOptions: {
+              dev: !prod
+            },
+            emitCss: prod,
+            hotReload: !prod,
+            preprocess: sveltePreprocess({ sourceMap: !prod })
+          }
+        }
+      },
+      {
+        // required to prevent errors from Svelte on Webpack 5+
+        test: /node_modules\/svelte\/.*\.mjs$/,
+        resolve: {
+          fullySpecified: false
+        }
       },
       {
         test: /\.s[ac]ss$/i,
@@ -44,10 +71,15 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      svelte: path.dirname(require.resolve('svelte/package.json'))
+    },
+    extensions: [".tsx", ".ts", ".js", ".svelte", ".mjs"],
+    mainFields: ['svelte', 'browser', 'module', 'main']
   },
   output: {
-    filename: "bundle.js",
+    filename: '[name].js',
+    chunkFilename: '[name].[id].js',
     path: path.resolve(__dirname, "dist"),
   },
 };
