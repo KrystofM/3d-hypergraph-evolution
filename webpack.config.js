@@ -18,7 +18,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      title: 'Development',
+      title: '3D HyperGraph Evolution',
+      template: './src/index.ejs',
     }),
   ],
   module: {
