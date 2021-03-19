@@ -1,17 +1,29 @@
 <script lang="ts">
     import {ALL_RULES} from "./hypergraphs/rules";
-    import HyperGraphRule from "./hypergraphs/hyperGraphRule";
-    import {activeRule, ruleProgress} from "./stores";
-
-    let rules: Array<HyperGraphRule> = ALL_RULES;
-
+    import {activeRule, ruleProgress, isPlaying} from "./stores";
+    import SvgPause from "./icons/SvgPause.svelte";
+    import SvgPlay from "./icons/SvgPlay.svelte";
 </script>
 
 <section class="controls">
     <div class="controls-in">
-        {#each rules as rule}
-            <div class="controls-item" on:click={() => activeRule.set(rule)}>
-                <p>{rule.name}</p>
+        {#each ALL_RULES as rule}
+            <div class="controls-item">
+                <div class="controls-item-wrap">
+                    <div class="controls-item-icons">
+                        {#if rule === $activeRule && $isPlaying}
+                            <span class="controls-item-icons-pause" on:click={() => isPlaying.set(false)}>
+                                <SvgPause/>
+                            </span>
+                        {/if}
+                        {#if !(rule === $activeRule && $isPlaying)}
+                            <span class="controls-item-icons-play" on:click={() => activeRule.set(rule)}>
+                                <SvgPlay/>
+                            </span>
+                        {/if}
+                    </div>
+                    <p>{rule.name}</p>
+                </div>
                 <div class="controls-item-time">
                     {#if rule === $activeRule}
                         <span style="width: {$ruleProgress}%"></span>
@@ -46,7 +58,17 @@
           position: relative
           width: 100%
           color: $c-main
-          cursor: pointer
+
+          &-wrap
+            display: flex
+            align-items: center
+
+          &-icons
+            cursor: pointer
+            &-pause,
+            &-play
+              display: block
+              padding: 13px 3px 0
 
           p
             margin: 0

@@ -8,7 +8,7 @@ import generateUUID = MathUtils.generateUUID;
 class HyperGraphRule3 implements HyperGraphRule {
     name: string = "Rule #3";
     optimalInitialPositions: HyperGraph = new HyperGraph([0,1,2], [[0,1],[0,2]]);
-    optimalTicksAmount: number = 11;
+    optimalTicksAmount: number = 14;
 
     apply(hyperGraph: HyperGraph): HyperGraph {
         let result: HyperGraph = hyperGraph.clone();

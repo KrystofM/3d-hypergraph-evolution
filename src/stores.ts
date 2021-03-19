@@ -5,7 +5,9 @@ import { tweened } from "svelte/motion";
 import { cubicOut } from "svelte/easing";
 
 export const activeRule = writable<HyperGraphRule>(ALL_RULES[0]);
+export const prevRule = writable<HyperGraphRule|null>(null);
 export const currentTick = writable<number>(1);
+export const isPlaying = writable<boolean>(false);
 export const ruleProgress = tweened(0, {
     duration: 400,
     easing: cubicOut
