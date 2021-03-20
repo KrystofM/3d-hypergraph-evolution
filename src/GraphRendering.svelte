@@ -52,7 +52,6 @@
     }
 
     let interval;
-
     function renderGraph(graph: ForceGraph3DInstance, rule: HyperGraphRule, speed: number) {
         clearInterval(interval);
         isPlaying.set(true);
@@ -73,7 +72,7 @@
 
                 graphData = rule.apply(graphData);
                 graph.graphData(convertToGraph(graphData));
-                graph.zoomToFit(speed, 150);
+                graph.zoomToFit(speed, 200);
                 ruleProgress.set((100 / rule.optimalTicksAmount) * $currentTick);
                 currentTick.update(n => n + 1);
             }

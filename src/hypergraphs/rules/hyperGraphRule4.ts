@@ -3,11 +3,11 @@ import type HyperGraphRule from "../hyperGraphRule";
 import {MathUtils} from "three";
 import generateUUID = MathUtils.generateUUID;
 
-// {{x, y, z}} -> {{x, y, w}, {y, w, z}}
-class HyperGraphRule2 implements HyperGraphRule {
-    name: string = "Rule #2";
+// {{x, y, z}} -> {{x, y, w}, {w, y, z}}
+class HyperGraphRule4 implements HyperGraphRule {
+    name: string = "Rule #4";
     optimalInitialPositions: HyperGraph = new HyperGraph([0], [[0,0,0]]);
-    optimalTicksAmount: number = 9;
+    optimalTicksAmount: number = 10;
 
     apply(hyperGraph: HyperGraph): HyperGraph {
         let result: HyperGraph = hyperGraph.clone();
@@ -19,7 +19,7 @@ class HyperGraphRule2 implements HyperGraphRule {
             let z = edge[2];
 
             result.nodes.push(w);
-            result.edges.push([x, y, w], [y, w, z]);
+            result.edges.push([x, y, w], [w, y, z]);
         })
 
         result.edges.splice(0, hyperGraph.edges.length);
@@ -28,4 +28,4 @@ class HyperGraphRule2 implements HyperGraphRule {
     }
 }
 
-export default HyperGraphRule2;
+export default HyperGraphRule4;

@@ -11,7 +11,7 @@ class HyperGraphRule3 implements HyperGraphRule {
     optimalTicksAmount: number = 14;
 
     apply(hyperGraph: HyperGraph): HyperGraph {
-        let result: HyperGraph = hyperGraph.clone();
+        let result: HyperGraph = new HyperGraph();
 
         let sameFirstIndexes: Array<Array<number>> = [];
         let alreadyMarked: Array<number> = [];
@@ -39,10 +39,8 @@ class HyperGraphRule3 implements HyperGraphRule {
             let y = firstEdge[1];
             let z = secondEdge[1];
 
-            result.nodes.push(w);
-            // delete second edge & push 3 remaining edges
-            result.edges.splice(indexPair[1], 1)
-            result.edges.push([x,w], [y,w], [z,w]);
+            result.nodes.push(x,y,z,w);
+            result.edges.push([x,y], [x,w], [y,w], [z,w]);
         }
 
         return result;
