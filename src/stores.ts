@@ -12,3 +12,5 @@ export const ruleProgress = tweened(0, {
     duration: 400,
     easing: cubicOut
 });
+export const isBlooming = writable<boolean>(false);
+export const showUI = writable<boolean>(true);

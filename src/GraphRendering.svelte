@@ -2,16 +2,18 @@
     import ForceGraph3D, {ForceGraph3DInstance} from '3d-force-graph';
     import "./styles/style.sass";
     import HyperGraph from "./hypergraphs/hyperGraph";
-    import {MathUtils} from "three";
+    import {MathUtils, Vector2} from "three";
     import generateUUID = MathUtils.generateUUID;
     import HyperGraphRule from "./hypergraphs/hyperGraphRule";
     import {activeRule, currentTick, isPlaying, prevRule, ruleProgress} from "./stores";
     import {onMount} from "svelte";
+    import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass";
 
-    const EXPANDED_EDGES_SIGNATURE: string = 'expanded';
-    const EXPANDED_EDGES_COLOR: string = 'rbga(0,0,0,0)';
+    const NODE_COLOR_SIGNATURE: string = 'node_color';
+    const CLASSIC_NODE_COLOR: string = '#FFF';
+    const EXPANDED_NODE_COLOR: string = '#000';
     const GRAPH_RENDER_ID: string = 'graph-rendering';
-    const GRAPH_TICK_SPEED: number = 750;
+    const GRAPH_TICK_SPEED: number = 1000;
 
     interface GraphData {
         nodes: object[],
@@ -23,7 +25,10 @@
         let result: GraphData = {nodes: [], links: []};
 
         for (let i of hyperGraph.nodes) {
-            result.nodes.push({id: i});
+            result.nodes.push({
+                id: i,
+                [NODE_COLOR_SIGNATURE]: CLASSIC_NODE_COLOR
+            });
         }
 
         for (let edge of hyperGraph.edges) {
@@ -31,7 +36,7 @@
                 let newNodeId = generateUUID();
                 result.nodes.push({
                     id: newNodeId,
-                    [EXPANDED_EDGES_SIGNATURE]: EXPANDED_EDGES_COLOR
+                    [NODE_COLOR_SIGNATURE]: EXPANDED_NODE_COLOR
                 });
 
                 for (let i of edge) {
@@ -83,7 +88,15 @@
         const element = document.getElementById(GRAPH_RENDER_ID);
         const graph = ForceGraph3D()(element)
             .linkOpacity(0.5)
-            .nodeColor(EXPANDED_EDGES_SIGNATURE);
+            .nodeColor(NODE_COLOR_SIGNATURE);
+
+        const bloomPass = new UnrealBloomPass(
+            new Vector2(),
+            0.5,
+            0.5,
+            0.1
+        );
+        graph.postProcessingComposer().addPass(bloomPass);
 
         activeRule.subscribe(activeRule => {
             if($prevRule === activeRule && !($currentTick >= activeRule.optimalTicksAmount)) {

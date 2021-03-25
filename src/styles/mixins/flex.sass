@@ -1,0 +1,9 @@
+=flex($justify: null, $align: center, $direction: null)
+
+	$properties: (justify-content: $justify, align-items: $align, flex-direction: $direction)
+
+	display: flex
+
+	@each $property, $value in $properties
+		@if $value
+			#{$property}: $value

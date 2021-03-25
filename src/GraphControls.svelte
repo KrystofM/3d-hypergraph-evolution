@@ -7,42 +7,56 @@
 
 <section class="controls">
     <div class="controls-in">
-        {#each ALL_RULES as rule}
-            <div class="controls-item">
-                <div class="controls-item-wrap">
-                    <div class="controls-item-icons">
-                        {#if rule === $activeRule && $isPlaying}
-                            <span class="controls-item-icons-pause" on:click={() => isPlaying.set(false)}>
-                                <SvgPause/>
-                            </span>
-                        {/if}
-                        {#if !(rule === $activeRule && $isPlaying)}
-                            <span class="controls-item-icons-play" on:click={() => activeRule.set(rule)}>
-                                <SvgPlay/>
-                            </span>
+        <div class="controls-options">
+            <label class="controls-options-item">
+                <input type="checkbox" class="controls-options-item-checkbox" />
+                <span class="controls-options-item-box"></span>
+                Auto Zoom
+            </label>
+            <label class="controls-options-item">
+                <input type="checkbox" class="controls-options-item-checkbox" />
+                <span class="controls-options-item-box"></span>
+                Bloom
+            </label>
+        </div>
+        <div class="controls-rules">
+            {#each ALL_RULES as rule}
+                <div class="controls-rule">
+                    <div class="controls-rule-wrap">
+                        <div class="controls-rule-icons">
+                            {#if rule === $activeRule && $isPlaying}
+                                <span class="controls-rule-icons-pause" on:click={() => isPlaying.set(false)}>
+                                    <SvgPause/>
+                                </span>
+                            {/if}
+                            {#if !(rule === $activeRule && $isPlaying)}
+                                <span class="controls-rule-icons-play" on:click={() => activeRule.set(rule)}>
+                                    <SvgPlay/>
+                                </span>
+                            {/if}
+                        </div>
+                        <p class="controls-rule-text">{rule.name}</p>
+                    </div>
+                    <div class="controls-rule-progress">
+                        {#if rule === $activeRule}
+                            <span class="controls-rule-progress-line" style="width: {$ruleProgress}%"></span>
                         {/if}
                     </div>
-                    <p>{rule.name}</p>
                 </div>
-                <div class="controls-item-time">
-                    {#if rule === $activeRule}
-                        <span style="width: {$ruleProgress}%"></span>
-                    {/if}
-                </div>
-            </div>
-        {/each}
+            {/each}
+        </div>
+
     </div>
 </section>
 
 <style lang="sass">
     @import "styles/variables"
+    @import "styles/mixins/position"
+    @import "styles/mixins/size"
 
     .controls
-        position: absolute
-        top: 0
-        left: 0
-        height: 100%
-        width: 100%
+        +absolute(0 null null 0)
+        +size(100%)
         display: flex
         justify-content: flex-end
         align-items: center
@@ -54,7 +68,22 @@
           margin-right: 60px
           pointer-events: all
 
-        &-item
+        &-options
+          display: flex
+
+          &-item
+            text-transform: uppercase
+            font-size: 11px
+            font-weight: $fw-heavy
+            color: $c-main
+
+            &-checkbox
+              +size(0)
+
+        &-rules
+          //
+
+        &-rule
           position: relative
           width: 100%
           color: $c-main
@@ -70,25 +99,19 @@
               display: block
               padding: 13px 3px 0
 
-          p
+          &-text
             margin: 0
             padding: 15px 0 5px
-            font-size: 18px
-            font-family: 'Avenir', serif
 
-          &-time
-            position: absolute
-            left: 0
-            bottom: 0
-            width: 100%
-            height: 2px
+          &-progress
+            +absolute(null null 0 0)
+            +size(100% 2px)
             border-radius: 3px
             border: 1px $c-main solid
 
-            span
-              display: block
-              width: 1px
+            &-line
               height: 100%
+              display: block
               background-color: $c-main
 
 
