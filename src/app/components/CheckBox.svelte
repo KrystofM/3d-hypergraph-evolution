@@ -1,9 +1,20 @@
+<script lang="ts">
+    import {createEventDispatcher} from "svelte";
 
+    export let text: string;
+    export let checked: boolean = false;
+
+    const dispatch = createEventDispatcher();
+
+    $: dispatch('change', {
+        value: checked
+    })
+</script>
 
 <label class="checkbox">
-    <input type="checkbox" class="checkbox-input" />
+    <input type="checkbox" class="checkbox-input" bind:checked={checked}/>
     <span class="checkbox-box"></span>
-    <p class="checkbox-text">Auto Zoom</p>
+    <p class="checkbox-text">{text}</p>
 </label>
 
 <style lang="sass">

@@ -13,5 +13,5 @@ export const ruleProgress = tweened(0, {
     easing: cubicOut
 });
 export const autoZoom = writable<boolean>(true);
-export const isBlooming = writable<boolean>(false);
+export const isBloom = writable<boolean>(true);
 export const hiddenUI = writable<boolean>(false);

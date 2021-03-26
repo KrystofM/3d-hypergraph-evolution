@@ -5,7 +5,7 @@
     import {MathUtils, Vector2} from "three";
     import generateUUID = MathUtils.generateUUID;
     import HyperGraphRule from "../../hypergraphs/hyperGraphRule";
-    import {activeRule, currentTick, isPlaying, prevRule, ruleProgress} from "../../stores";
+    import {activeRule, currentTick, isPlaying, prevRule, ruleProgress, autoZoom, isBloom} from "../../stores";
     import {onMount} from "svelte";
     import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass";
 
@@ -77,7 +77,7 @@
 
                 graphData = rule.apply(graphData);
                 graph.graphData(convertToGraph(graphData));
-                graph.zoomToFit(speed, 200);
+                if ($autoZoom) graph.zoomToFit(speed, 200);
                 ruleProgress.set((100 / rule.optimalTicksAmount) * $currentTick);
                 currentTick.update(n => n + 1);
             }
@@ -88,15 +88,20 @@
         const element = document.getElementById(GRAPH_RENDER_ID);
         const graph = ForceGraph3D()(element)
             .linkOpacity(0.5)
+            .nodeOpacity(1)
             .nodeColor(NODE_COLOR_SIGNATURE);
 
         const bloomPass = new UnrealBloomPass(
             new Vector2(),
-            0.5,
-            0.5,
-            0.1
+            1,
+            0.75,
+            0.2
         );
-        graph.postProcessingComposer().addPass(bloomPass);
+
+        isBloom.subscribe(value => {
+            value ? graph.postProcessingComposer().addPass(bloomPass)
+                : graph.postProcessingComposer().removePass(bloomPass);
+        })
 
         activeRule.subscribe(activeRule => {
             if($prevRule === activeRule && !($currentTick >= activeRule.optimalTicksAmount)) {
