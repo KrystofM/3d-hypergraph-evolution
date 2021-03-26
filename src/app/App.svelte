@@ -1,0 +1,20 @@
+<script lang="ts">
+    import GraphRendering from "./parts/GraphRendering"
+    import GraphControls from "./parts/GraphControls"
+    import Logo from "./components/Logo.svelte";
+</script>
+
+<main>
+    <GraphRendering/>
+    <GraphControls/>
+    <Logo/>
+</main>
+
+<style lang="sass">
+    @import "src/app/styles/variables"
+    @import "src/app/styles/mixins/position"
+
+    main
+      +relative
+
+</style>

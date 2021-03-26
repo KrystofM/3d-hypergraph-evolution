@@ -1,23 +1,14 @@
 <script lang="ts">
-    import {ALL_RULES} from "./hypergraphs/rules";
-    import {activeRule, ruleProgress, isPlaying} from "./stores";
-    import SvgPause from "./icons/SvgPause.svelte";
-    import SvgPlay from "./icons/SvgPlay.svelte";
+    import {ALL_RULES} from "../../hypergraphs/rules";
+    import {activeRule, ruleProgress, isPlaying} from "../../stores";
+    import SvgPause from "../assets/icons/SvgPause.svelte";
+    import SvgPlay from "../assets/icons/SvgPlay.svelte";
 </script>
 
 <section class="controls">
     <div class="controls-in">
         <div class="controls-options">
-            <label class="controls-options-item">
-                <input type="checkbox" class="controls-options-item-checkbox" />
-                <span class="controls-options-item-box"></span>
-                Auto Zoom
-            </label>
-            <label class="controls-options-item">
-                <input type="checkbox" class="controls-options-item-checkbox" />
-                <span class="controls-options-item-box"></span>
-                Bloom
-            </label>
+
         </div>
         <div class="controls-rules">
             {#each ALL_RULES as rule}
@@ -50,9 +41,9 @@
 </section>
 
 <style lang="sass">
-    @import "styles/variables"
-    @import "styles/mixins/position"
-    @import "styles/mixins/size"
+    @import "src/app/styles/variables"
+    @import "src/app/styles/mixins/position"
+    @import "src/app/styles/mixins/size"
 
     .controls
         +absolute(0 null null 0)
@@ -70,15 +61,6 @@
 
         &-options
           display: flex
-
-          &-item
-            text-transform: uppercase
-            font-size: 11px
-            font-weight: $fw-heavy
-            color: $c-main
-
-            &-checkbox
-              +size(0)
 
         &-rules
           //

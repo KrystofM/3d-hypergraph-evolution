@@ -1,11 +1,11 @@
 <script lang="ts">
     import ForceGraph3D, {ForceGraph3DInstance} from '3d-force-graph';
-    import "./styles/style.sass";
-    import HyperGraph from "./hypergraphs/hyperGraph";
+    import "../styles/style.sass";
+    import HyperGraph from "../../hypergraphs/hyperGraph";
     import {MathUtils, Vector2} from "three";
     import generateUUID = MathUtils.generateUUID;
-    import HyperGraphRule from "./hypergraphs/hyperGraphRule";
-    import {activeRule, currentTick, isPlaying, prevRule, ruleProgress} from "./stores";
+    import HyperGraphRule from "../../hypergraphs/hyperGraphRule";
+    import {activeRule, currentTick, isPlaying, prevRule, ruleProgress} from "../../stores";
     import {onMount} from "svelte";
     import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass";
 
