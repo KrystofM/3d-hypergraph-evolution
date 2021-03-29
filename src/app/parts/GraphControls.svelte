@@ -10,8 +10,6 @@
             case "c":
                 hiddenUI.update(v => !v);
                 break;
-            case " ":
-                break;
         }
     }
 
@@ -77,12 +75,22 @@
           display: flex
 
         &-rules
-          //
+          margin: 25px 0
+          max-height: 280px
+          overflow-y: auto
 
         &-rule
           position: relative
           width: 100%
           color: $c-main
+
+          &:first-child &
+            &-text
+              padding: 0 0 5px
+            &-icons
+              &-pause,
+              &-play
+                padding: 0 3px 4px
 
           &-wrap
             display: flex
@@ -111,7 +119,6 @@
               background-color: $c-main
 
         &-clue
-          margin-top: 25px
           font-size: 11px
           text-align: center
 
