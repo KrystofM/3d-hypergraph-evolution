@@ -1,5 +1,6 @@
 @import "variables"
 @import "fonts"
+@import "mixins/breakpoints"
 
 *, *:before, *:after
   box-sizing: inherit
@@ -29,3 +30,8 @@ main
       .scene-nav-info,
       .github
         visibility: hidden
+
+  +breakpoint(m-up)
+    .scene-nav-info
+      display: none
+

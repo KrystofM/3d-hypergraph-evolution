@@ -20,6 +20,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: '3D HyperGraph Evolution',
       template: './src/index.ejs',
+      mobile: true,
     }),
   ],
   module: {

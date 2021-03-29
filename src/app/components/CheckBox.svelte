@@ -31,6 +31,10 @@
     &-input
       +absolute()
       +size(0)
+      opacity: 0
+      visibility: hidden
+      appearance: none
+      -webkit-appearance: none
 
     &-input:checked + &-box::before
       display: block

@@ -82,10 +82,11 @@
           display: flex
 
         &-rules
-          max-height: 15vh
+          max-height: 20vh
           min-height: 50px
           overflow-y: auto
-          margin: 10px 0 25px
+          overflow-x: hidden
+          padding: 10px 0 10px
 
           +breakpoint(m)
             margin: 15px 0 25px
@@ -121,7 +122,8 @@
 
           &-progress
             +absolute(null null 0 0)
-            +size(100% 2px)
+            width: calc(100% - 2px)
+            height: 2px
             border-radius: 3px
             border: 1px $c-main solid
 

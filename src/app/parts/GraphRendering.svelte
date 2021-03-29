@@ -1,6 +1,6 @@
 <script lang="ts">
     import ForceGraph3D, {ForceGraph3DInstance} from '3d-force-graph';
-    import "../styles/style.sass";
+    import "../styles/global.sass";
     import HyperGraph from "../../hypergraphs/hyperGraph";
     import {MathUtils, Vector2} from "three";
     import generateUUID = MathUtils.generateUUID;

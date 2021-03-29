@@ -16,7 +16,7 @@
         display: none
         fill: $c-main
 
-        +breakpoint(s)
+        +breakpoint(m)
             display: block
 
 </style>
