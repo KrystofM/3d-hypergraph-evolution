@@ -56,28 +56,40 @@
     @import "src/app/styles/variables"
     @import "src/app/styles/mixins/position"
     @import "src/app/styles/mixins/size"
+    @import "src/app/styles/mixins/breakpoints"
 
     .controls
         +absolute(0 null null 0)
         +size(100%)
         display: flex
         justify-content: flex-end
-        align-items: center
+        align-items: flex-end
         pointer-events: none
 
+        +breakpoint(m)
+          align-items: center
+
         &-in
-          max-width: 275px
           width: 100%
-          margin-right: 60px
+          padding: 0 15px
           pointer-events: all
+
+          +breakpoint(m)
+            max-width: 275px
+            margin-right: 60px
 
         &-options
           display: flex
 
         &-rules
-          margin: 25px 0
-          max-height: 280px
+          max-height: 15vh
+          min-height: 50px
           overflow-y: auto
+          margin: 10px 0 25px
+
+          +breakpoint(m)
+            margin: 25px 0
+            max-height: 40vh
 
         &-rule
           position: relative
@@ -121,6 +133,10 @@
         &-clue
           font-size: 11px
           text-align: center
+          display: none
+
+          +breakpoint(m)
+            display: block
 
 
 </style>

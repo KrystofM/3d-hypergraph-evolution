@@ -5,6 +5,7 @@
 
 <style lang="sass">
   @import "src/app/styles/variables"
+  @import "src/app/styles/mixins/breakpoints"
 
   .logo
     position: absolute
@@ -19,11 +20,27 @@
       margin: 0
 
     &-headline
-      font-size: 34px
+      font-size: 22px
 
     &-subline
       -webkit-text-stroke: 2px $c-main
       -webkit-text-fill-color: transparent
       margin-top: -5px
+      font-size: 14px
+
+    +breakpoint(sm)
+      &-headline
+        font-size: 25px
+
+      &-subline
+        font-size: 16px
+
+    +breakpoint(s)
+        &-headline
+          font-size: 34px
+
+        &-subline
+          font-size: 24px
+
 
 </style>

@@ -98,6 +98,11 @@
             0.2
         );
 
+        window.addEventListener('resize', (e) => {
+            graph.height(window.innerHeight);
+            graph.width(window.innerWidth);
+        });
+
         isBloom.subscribe(value => {
             value ? graph.postProcessingComposer().addPass(bloomPass)
                 : graph.postProcessingComposer().removePass(bloomPass);
