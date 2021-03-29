@@ -1,9 +1,35 @@
 <script lang="ts">
     import {ALL_RULES} from "../../hypergraphs/rules";
-    import {activeRule, ruleProgress, isPlaying, autoZoom, isBloom} from "../../stores";
+    import {activeRender, activeRule, ruleProgress, isPlaying, autoZoom, isBloom, hiddenUI} from "../stores";
     import SvgPause from "../assets/icons/SvgPause.svelte";
     import SvgPlay from "../assets/icons/SvgPlay.svelte";
     import CheckBox from "../components/CheckBox.svelte";
+
+    function handleKeyboard(e: KeyboardEvent) {
+        switch (e.key) {
+            case "c":
+                hiddenUI.update(v => !v);
+                break;
+            case " ":
+
+                break;
+        }
+    }
+
+    function handlePlay() {
+        //
+    }
+
+    function handleStop() {
+        $activeRender.pause();
+    }
+
+    activeRender.subscribe(render => {
+        console.log('event');
+    })
+
+
+    document.addEventListener('keydown', handleKeyboard)
 </script>
 
 <section class="controls">
@@ -18,12 +44,12 @@
                     <div class="controls-rule-wrap">
                         <div class="controls-rule-icons">
                             {#if rule === $activeRule && $isPlaying}
-                                <span class="controls-rule-icons-pause" on:click={() => isPlaying.set(false)}>
+                                <span class="controls-rule-icons-pause" on:click={handleStop}>
                                     <SvgPause/>
                                 </span>
                             {/if}
                             {#if !(rule === $activeRule && $isPlaying)}
-                                <span class="controls-rule-icons-play" on:click={() => activeRule.set(rule)}>
+                                <span class="controls-rule-icons-play" on:click={handlePlay}>
                                     <SvgPlay/>
                                 </span>
                             {/if}
@@ -31,14 +57,14 @@
                         <p class="controls-rule-text">{rule.name}</p>
                     </div>
                     <div class="controls-rule-progress">
-                        {#if rule === $activeRule}
+                        {#if rule === $activeRender.hyperGraphRule}
                             <span class="controls-rule-progress-line" style="width: {$ruleProgress}%"></span>
                         {/if}
                     </div>
                 </div>
             {/each}
         </div>
-
+        <p class="controls-clue">Press C to toggle hiding controls</p>
     </div>
 </section>
 
@@ -97,6 +123,11 @@
               height: 100%
               display: block
               background-color: $c-main
+
+        &-clue
+          margin-top: 25px
+          font-size: 11px
+          text-align: center
 
 
 </style>

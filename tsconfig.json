@@ -8,6 +8,7 @@
         "moduleResolution": "node",
         "strictNullChecks": true,
         "jsx": "react",
+        "isolatedModules": false,
         "allowJs": true
     },
     "include": [ "src/**/*", "src/node_modules/**/*","./src/**/*.ts" ],

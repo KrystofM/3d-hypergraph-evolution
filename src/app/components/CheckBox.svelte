@@ -54,7 +54,6 @@
       text-transform: uppercase
       font-size: 11px
       font-weight: $fw-heavy
-      color: $c-main
       margin: 0
       padding: 1px 15px 0 5px
       user-select: none

@@ -2,9 +2,10 @@
     import GraphRendering from "./parts/GraphRendering"
     import GraphControls from "./parts/GraphControls"
     import Logo from "./components/Logo.svelte";
+    import {hiddenUI} from "./stores";
 </script>
 
-<main>
+<main class="{$hiddenUI ? 'hidden': ''}">
     <GraphRendering/>
     <GraphControls/>
     <Logo/>
