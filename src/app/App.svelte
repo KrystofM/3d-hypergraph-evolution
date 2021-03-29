@@ -3,12 +3,14 @@
     import GraphControls from "./parts/GraphControls"
     import Logo from "./components/Logo.svelte";
     import {hiddenUI} from "../stores";
+    import GithubLink from "./components/GithubLink.svelte";
 </script>
 
 <main class="{$hiddenUI ? 'hidden': ''}">
     <GraphRendering/>
     <GraphControls/>
     <Logo/>
+    <GithubLink/>
 </main>
 
 <style lang="sass">
