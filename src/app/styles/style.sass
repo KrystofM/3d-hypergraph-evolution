@@ -16,6 +16,15 @@ body
 p, label
   font-family: $font-family-base
   font-size: $base-font-size
+  color: $c-main
 
 h1, h2, h3, h4, h5, h6
   font-family: $font-family-head
+
+main
+  &.hidden
+    &
+      .controls,
+      .logo,
+      .scene-nav-info
+        visibility: hidden

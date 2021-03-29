@@ -1,9 +1,21 @@
 <script lang="ts">
     import {ALL_RULES} from "../../hypergraphs/rules";
-    import {activeRule, ruleProgress, isPlaying, autoZoom, isBloom} from "../../stores";
+    import {activeRule, ruleProgress, isPlaying, autoZoom, isBloom, hiddenUI} from "../../stores";
     import SvgPause from "../assets/icons/SvgPause.svelte";
     import SvgPlay from "../assets/icons/SvgPlay.svelte";
     import CheckBox from "../components/CheckBox.svelte";
+
+    function handleKeyboard(e: KeyboardEvent) {
+        switch (e.key) {
+            case "c":
+                hiddenUI.update(v => !v);
+                break;
+            case " ":
+                break;
+        }
+    }
+
+    document.addEventListener('keydown', handleKeyboard)
 </script>
 
 <section class="controls">
@@ -38,7 +50,7 @@
                 </div>
             {/each}
         </div>
-
+        <p class="controls-clue">Press C to toggle hiding controls</p>
     </div>
 </section>
 
@@ -97,6 +109,11 @@
               height: 100%
               display: block
               background-color: $c-main
+
+        &-clue
+          margin-top: 25px
+          font-size: 11px
+          text-align: center
 
 
 </style>
