@@ -12,7 +12,7 @@ class HyperGraphRule2 implements HyperGraphRule {
     apply(hyperGraph: HyperGraph): HyperGraph {
         let result: HyperGraph = hyperGraph.clone();
 
-        hyperGraph.edges.forEach((edge, index) => {
+        hyperGraph.edges.forEach((edge) => {
             let w = generateUUID();
             let x = edge[0];
             let y = edge[1];

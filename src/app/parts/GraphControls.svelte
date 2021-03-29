@@ -88,7 +88,7 @@
           margin: 10px 0 25px
 
           +breakpoint(m)
-            margin: 25px 0
+            margin: 15px 0 25px
             max-height: 40vh
 
         &-rule

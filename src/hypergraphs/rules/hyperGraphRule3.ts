@@ -3,45 +3,27 @@ import type HyperGraphRule from "../hyperGraphRule";
 import {MathUtils} from "three";
 import generateUUID = MathUtils.generateUUID;
 
-// {{x, y}, {x, z}} -> {{x, y}, {x, w}, {y, w}, {z, w}}
-// in a single step, we update as many edges as possible, while never updating any edge more than once.
+// {{x, y, z}} -> {{x, z, w}, {u, w, y}}
 class HyperGraphRule3 implements HyperGraphRule {
     name: string = "Rule #3";
-    optimalInitialPositions: HyperGraph = new HyperGraph([0,1,2], [[0,1],[0,2]]);
-    optimalTicksAmount: number = 14;
+    optimalInitialPositions: HyperGraph = new HyperGraph([0], [[0,0,0]]);
+    optimalTicksAmount: number = 11;
 
     apply(hyperGraph: HyperGraph): HyperGraph {
-        let result: HyperGraph = new HyperGraph();
+        let result: HyperGraph = hyperGraph.clone();
 
-        let sameFirstIndexes: Array<Array<number>> = [];
-        let alreadyMarked: Array<number> = [];
-        for(let i = 0; i < hyperGraph.edges.length; i++) {
-            let checkingFor = hyperGraph.edges[i][0];
-            if(!alreadyMarked.includes(i)) {
-                for (let j = 0; j < hyperGraph.edges.length; j++) {
-                    if (checkingFor === hyperGraph.edges[j][0] && j != i && !alreadyMarked.includes(i) && !alreadyMarked.includes(j)) {
-                        sameFirstIndexes.push([i, j]);
-                        alreadyMarked.push(i, j);
-                    }
-                }
-            }
-        }
-
-        for(let indexPair of sameFirstIndexes) {
-            let firstEdge = hyperGraph.edges[indexPair[0]]
-            let secondEdge = hyperGraph.edges[indexPair[1]]
-            if(firstEdge[0] != secondEdge[0]) {
-                throw Error('This should not happen');
-            }
-
+        hyperGraph.edges.forEach((edge, index) => {
             let w = generateUUID();
-            let x = firstEdge[0];
-            let y = firstEdge[1];
-            let z = secondEdge[1];
+            let u = generateUUID();
+            let x = edge[0];
+            let y = edge[1];
+            let z = edge[2];
 
-            result.nodes.push(x,y,z,w);
-            result.edges.push([x,y], [x,w], [y,w], [z,w]);
-        }
+            result.nodes.push(w, u);
+            result.edges.push([x, z, y], [u, w, y]);
+        })
+
+        result.edges.splice(0, hyperGraph.edges.length);
 
         return result;
     }
