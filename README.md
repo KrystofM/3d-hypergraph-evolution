@@ -2,11 +2,10 @@
 
 ## Technology stack
 - Webpack
-- React
+- Svelte
 - Sass
-- TypeScript
-- WebGL
-- ThreeJS
+- TypeScript    
+- WebGL, ThreeJS -> 3D Force-Directed Graph
 
 ## Before start
 ``npm install``
